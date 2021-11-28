@@ -3,12 +3,7 @@ public class SuperiorRoom extends Room {
     private boolean kitchen;
 
     public SuperiorRoom(int roomNo) {
-        super(roomNo, "superior room");
-
-    }
-
-    public SuperiorRoom(int roomNo, String bedType) {
-        super(roomNo, bedType, "superior room");
+        super(roomNo, "King size", "superior room");
 
     }
 

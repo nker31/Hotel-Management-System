@@ -6,8 +6,9 @@ public class SuiteRoom extends Room {
         super(roomNo, "suite room");
     }
 
-    public SuiteRoom(int roomNo, String bedType) {
-        super(roomNo, bedType, "suite room");
+    public SuiteRoom(int roomNo, Staff staff) {
+        super(roomNo, "Queen size", "suite room");
+        this.staff = staff;
     }
 
     public Staff getStaff() {
