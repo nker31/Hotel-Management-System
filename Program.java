@@ -4,7 +4,8 @@ public class Program {
     static Scanner input = new Scanner(System.in);
     static Scanner input2 = new Scanner(System.in);
     static ArrayList<Customer> allCustomer = new ArrayList<Customer>();
-    static ArrayList<Room> HOTELROOM = new ArrayList<Room>();
+    static ArrayList<String> HISTORY = new ArrayList<String>();
+    // static ArrayList<Room> HOTELROOM = new ArrayList<Room>();
     static ArrayList<SuperiorRoom> SUPERIORROOM = new ArrayList<SuperiorRoom>();
     static ArrayList<SuiteRoom> SUITEROOM = new ArrayList<SuiteRoom>();
     static String[] inputData = new String[5];
@@ -27,7 +28,6 @@ public class Program {
         SUPERIORROOM.add(new SuperiorRoom(6));
 
         // Main menu
-        // Need to debug if we insert string to input the program will be error
         while (isWorking) {
             showMenu();
             System.out.print("Enter :");
@@ -41,10 +41,14 @@ public class Program {
                 showRoomInfo();
                 clearLine();
             } else if (ip == 4) {
+                showStaff();
+                clearLine();
+            } else if (ip == 5) {
+                showHistory();
+                clearLine();
+            } else if (ip == 6) {
                 System.out.println(">>Exit");
                 break;
-            } else if (ip == 5) {
-                showStaff();
             } else {
                 System.out.println("Error please try again");
                 clearLine();
@@ -58,7 +62,9 @@ public class Program {
         System.out.println("1.check-in");
         System.out.println("2.check-out");
         System.out.println("3.check room remaining");
-        System.out.println("4.exit");
+        System.out.println("4.Show staff");
+        System.out.println("5.Show room history");
+        System.out.println("6.exit");
         System.out.println("=============================================");
 
     }
@@ -96,8 +102,15 @@ public class Program {
 
                         Customer cus = new Customer(inputData[0], inputData[1], inputData[2], inputData[3],
                                 inputData[4]);
-                        allCustomer.add(cus);
+                        // allCustomer.add(cus);
                         SUPERIORROOM.get(inputSelect - 1).checkIn(cus);
+                        String history = String.format("%8s | %-14s | %-8s %-10s",
+                                Integer.toString(SUPERIORROOM.get(inputSelect - 1).getRoomNo()),
+                                SUPERIORROOM.get(inputSelect - 1).getRoomType(),
+                                SUPERIORROOM.get(inputSelect - 1).getRoomCustomer().getCustomerName(),
+                                SUPERIORROOM.get(inputSelect - 1).getRoomCustomer().getCustomerLastName());
+                        HISTORY.add(history);
+
                         System.out.println("---- checked-in successfully ----");
                     } else if (inputCF.toUpperCase().equals("N")) {
                         checkIn();
@@ -131,9 +144,17 @@ public class Program {
                     if (inputCF.toUpperCase().equals("Y")) {
                         Customer cus = new Customer(inputData[0], inputData[1], inputData[2], inputData[3],
                                 inputData[4]);
-                        allCustomer.add(cus);
+                        // allCustomer.add(cus);
                         SUITEROOM.get(inputSelect - 1).checkIn(cus);
+                        SUITEROOM.get(inputSelect - 1).getRoomNo();
+                        String history = String.format("%8s | %-14s | %-8s %-10s",
+                                Integer.toString(SUITEROOM.get(inputSelect - 1).getRoomNo()),
+                                SUITEROOM.get(inputSelect - 1).getRoomType(),
+                                SUITEROOM.get(inputSelect - 1).getRoomCustomer().getCustomerName(),
+                                SUITEROOM.get(inputSelect - 1).getRoomCustomer().getCustomerLastName());
+                        HISTORY.add(history);
                         System.out.println("---- checked-in successfully ----");
+
                     } else if (inputCF.toUpperCase().equals("N")) {
                         checkIn();
 
@@ -215,7 +236,7 @@ public class Program {
     }
 
     private static int selectType() {
-        System.out.println("==== Select room type ====");
+        System.out.println("================= Select room type ==============");
         System.out.println("1. Superior Room");
         System.out.println("2. Suite Room");
         System.out.print("Press number for select room (1 or 2) : ");
@@ -225,7 +246,7 @@ public class Program {
         } else if (selectedType == 2) {
             showSelectedRoomInfo(2);// Select suite room
         } else {
-            System.out.println("Error please select type again");
+            System.out.println("Error please select type again !");
             checkIn();
         }
         return selectedType;
@@ -239,16 +260,16 @@ public class Program {
                 if (SUPERIORROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
                     System.out.println(
 
-                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + ", type: "
+                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
                                     + SUPERIORROOM.get(i).getRoomType()
-                                    + ", status booked" + " Customer: "
+                                    + " | Status: unoccupied" + " Customer: "
                                     + SUPERIORROOM.get(i).getRoomCustomer().getCustomerName() + " "
                                     + SUPERIORROOM.get(i).getRoomCustomer().getCustomerLastName());
                 } else if (SUPERIORROOM.get(i).isStatus().equals("empty")) { // ว่าง
                     System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + ", type: "
+                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
                                     + SUPERIORROOM.get(i).getRoomType()
-                                    + ", status empty");
+                                    + " | Status: empty");
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
@@ -261,17 +282,18 @@ public class Program {
                 // Check room status empty or booked
                 if (SUITEROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
                     System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + ", type: "
+                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
                                     + SUITEROOM.get(i).getRoomType()
-                                    + ", status booked" + " Customer: "
+                                    + " | Status: booked" + " Customer: "
                                     + SUITEROOM.get(i).getRoomCustomer().getCustomerName() + " "
-                                    + SUITEROOM.get(i).getRoomCustomer().getCustomerLastName() + " Staff: "
+                                    + SUITEROOM.get(i).getRoomCustomer().getCustomerLastName() + " | Staff: "
                                     + SUITEROOM.get(i).getStaff().getStaffName());
                 } else if (SUITEROOM.get(i).isStatus().equals("empty")) { // ว่าง
                     System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + ", type: "
+                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
                                     + SUITEROOM.get(i).getRoomType()
-                                    + ", status empty" + " Staff: " + SUITEROOM.get(i).getStaff().getStaffName());
+                                    + " | Status: unoccupied" + " | Staff: "
+                                    + SUITEROOM.get(i).getStaff().getStaffName());
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
@@ -280,19 +302,23 @@ public class Program {
     }
 
     private static void showRoomInfo() {
-        System.out.println("=============== Show All Room===============");
+        System.out.println("================= Show All Room =================");
 
         showRoomRemaining();
 
         // Show SuiteRoom
         for (int i = 0; i < SUITEROOM.size(); i++) {
             if (SUITEROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
-                System.out.println("Room. " + SUITEROOM.get(i).getRoomNo() + ", type: " + SUITEROOM.get(i).getRoomType()
-                        + ", status booked" + " customer: " + SUITEROOM.get(i).getRoomCustomer().getCustomerName() + " "
-                        + SUITEROOM.get(i).getRoomCustomer().getCustomerLastName());
+
+                System.out.format("Room. %-4s | Type: %-15s  | Status: booked by %-10s %-15s \n",
+                        SUITEROOM.get(i).getRoomNo(),
+                        SUITEROOM.get(i).getRoomType(), SUITEROOM.get(i).getRoomCustomer().getCustomerName(),
+                        SUITEROOM.get(i).getRoomCustomer().getCustomerLastName());
+
             } else if (SUITEROOM.get(i).isStatus().equals("empty")) { // ว่าง
-                System.out.println("Room. " + SUITEROOM.get(i).getRoomNo() + ", type: " + SUITEROOM.get(i).getRoomType()
-                        + ", status empty");
+
+                System.out.format("Room. %-4s | Type: %-15s  | Status: unoccupied \n", SUITEROOM.get(i).getRoomNo(),
+                        SUITEROOM.get(i).getRoomType());
             } else {
                 System.out.println("I'm working but condition is not true");
             }
@@ -301,15 +327,14 @@ public class Program {
         // Show SuperiorRoom
         for (int i = 0; i < SUPERIORROOM.size(); i++) {
             if (SUPERIORROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
-                System.out.println(
-                        "Room. " + SUPERIORROOM.get(i).getRoomNo() + ", type: " + SUPERIORROOM.get(i).getRoomType()
-                                + ", status booked" + " customer: "
-                                + SUPERIORROOM.get(i).getRoomCustomer().getCustomerName() + " "
-                                + SUPERIORROOM.get(i).getRoomCustomer().getCustomerLastName());
+
+                System.out.format("Room. %-4s | Type: %-15s  | Status: booked by %-10s %-15s \n",
+                        SUPERIORROOM.get(i).getRoomNo(),
+                        SUPERIORROOM.get(i).getRoomType(), SUPERIORROOM.get(i).getRoomCustomer().getCustomerName(),
+                        SUPERIORROOM.get(i).getRoomCustomer().getCustomerLastName());
             } else if (SUPERIORROOM.get(i).isStatus().equals("empty")) { // ว่าง
-                System.out.println(
-                        "Room. " + SUPERIORROOM.get(i).getRoomNo() + ", type: " + SUPERIORROOM.get(i).getRoomType()
-                                + ", status empty");
+                System.out.format("Room. %-4s | Type: %-15s  | Status: unoccupied \n", SUPERIORROOM.get(i).getRoomNo(),
+                        SUPERIORROOM.get(i).getRoomType());
             } else {
                 System.out.println("I'm working but condition is not true");
             }
@@ -332,12 +357,12 @@ public class Program {
         }
         System.out.println("Total room : " + totalRoom + " | " + roomRemain + " room remaining   "
                 + (totalRoom - roomRemain) + " room booked");
-        System.out.println("=============================================");
+        System.out.println("=================================================");
     }
 
     private static void showStaff() {
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.println("name            lastname           phone num.           email");
+        System.out.println("Name            Lastname           Phone num.           Email");
         System.out.println("--------------------------------------------------------------------------------");
         // name12 lname 15
         for (Staff staff : STAFFARRAY) {
@@ -348,8 +373,24 @@ public class Program {
         clearLine();
     }
 
+    private static void showHistory() {
+        System.out.println("------------------------------------------------");
+        System.out.println("|                 Show history                 |");
+        System.out.println("------------------------------------------------");
+        System.out.println("| Room no.| Room type        | Customer        |");
+        System.out.println("------------------------------------------------");
+        if (HISTORY.size() > 0) {
+            for (String history : HISTORY) {
+                System.out.println(history);
+            }
+        } else {
+            System.out.println("attention ! no history");
+        }
+        System.out.println("------------------------------------------------");
+    }
+
     private static void clearLine() {
-        System.out.println("-----> Please any key to continue <-----");
+        System.out.println("-----> Press any key to continue <-----");
         input.nextLine();
         for (int i = 0; i < 15; i++) {
             System.out.println("");
