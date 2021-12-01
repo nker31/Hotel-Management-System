@@ -58,14 +58,14 @@ public class Program {
     }
 
     private static void showMenu() {
-        System.out.println("============ Hotel Management System ========");
+        System.out.println("============== Hotel Management System ==========");
         System.out.println("1.check-in");
         System.out.println("2.check-out");
         System.out.println("3.check room remaining");
         System.out.println("4.Show staff");
         System.out.println("5.Show room history");
         System.out.println("6.exit");
-        System.out.println("=============================================");
+        System.out.println("=================================================");
 
     }
 
@@ -76,7 +76,6 @@ public class Program {
         System.out.print("Select room for check-in: ");
         int inputSelect;
         char charInputSelect = input2.next().charAt(0);
-
         if (Character.isDigit(charInputSelect)) { // Check String error
             inputSelect = Character.getNumericValue(charInputSelect);
 
@@ -104,7 +103,7 @@ public class Program {
                                 inputData[4]);
                         // allCustomer.add(cus);
                         SUPERIORROOM.get(inputSelect - 1).checkIn(cus);
-                        String history = String.format("%8s | %-14s | %-8s %-10s",
+                        String history = String.format("%8s  | %-14s | %-8s %-10s",
                                 Integer.toString(SUPERIORROOM.get(inputSelect - 1).getRoomNo()),
                                 SUPERIORROOM.get(inputSelect - 1).getRoomType(),
                                 SUPERIORROOM.get(inputSelect - 1).getRoomCustomer().getCustomerName(),
@@ -147,7 +146,7 @@ public class Program {
                         // allCustomer.add(cus);
                         SUITEROOM.get(inputSelect - 1).checkIn(cus);
                         SUITEROOM.get(inputSelect - 1).getRoomNo();
-                        String history = String.format("%8s | %-14s | %-8s %-10s",
+                        String history = String.format("%8s  | %-14s | %-8s %-10s",
                                 Integer.toString(SUITEROOM.get(inputSelect - 1).getRoomNo()),
                                 SUITEROOM.get(inputSelect - 1).getRoomType(),
                                 SUITEROOM.get(inputSelect - 1).getRoomCustomer().getCustomerName(),
@@ -236,11 +235,15 @@ public class Program {
     }
 
     private static int selectType() {
+
         System.out.println("================= Select room type ==============");
         System.out.println("1. Superior Room");
         System.out.println("2. Suite Room");
         System.out.print("Press number for select room (1 or 2) : ");
+
         int selectedType = input2.nextInt();
+        System.out.println("=================================================");
+
         if (selectedType == 1) {
             showSelectedRoomInfo(1); // Select superior room
         } else if (selectedType == 2) {
@@ -310,15 +313,17 @@ public class Program {
         for (int i = 0; i < SUITEROOM.size(); i++) {
             if (SUITEROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
 
-                System.out.format("Room. %-4s | Type: %-15s  | Status: booked by %-10s %-15s \n",
+                System.out.format("Room. %-4s   | Type: %-15s | Bed type: %-10s | Status: booked by %-8s %-15s \n",
                         SUITEROOM.get(i).getRoomNo(),
-                        SUITEROOM.get(i).getRoomType(), SUITEROOM.get(i).getRoomCustomer().getCustomerName(),
+                        SUITEROOM.get(i).getRoomType(), SUITEROOM.get(i).getBedType(),
+                        SUITEROOM.get(i).getRoomCustomer().getCustomerName(),
                         SUITEROOM.get(i).getRoomCustomer().getCustomerLastName());
 
             } else if (SUITEROOM.get(i).isStatus().equals("empty")) { // ว่าง
 
-                System.out.format("Room. %-4s | Type: %-15s  | Status: unoccupied \n", SUITEROOM.get(i).getRoomNo(),
-                        SUITEROOM.get(i).getRoomType());
+                System.out.format("Room. %-4s   | Type: %-15s | Bed type: %-10s | Status: unoccupied \n",
+                        SUITEROOM.get(i).getRoomNo(),
+                        SUITEROOM.get(i).getRoomType(), SUITEROOM.get(i).getBedType());
             } else {
                 System.out.println("I'm working but condition is not true");
             }
@@ -328,13 +333,15 @@ public class Program {
         for (int i = 0; i < SUPERIORROOM.size(); i++) {
             if (SUPERIORROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
 
-                System.out.format("Room. %-4s | Type: %-15s  | Status: booked by %-10s %-15s \n",
+                System.out.format("Room. %-4s   | Type: %-15s | Bed type: %-10s | Status: booked by %-8s %-15s \n",
                         SUPERIORROOM.get(i).getRoomNo(),
-                        SUPERIORROOM.get(i).getRoomType(), SUPERIORROOM.get(i).getRoomCustomer().getCustomerName(),
+                        SUPERIORROOM.get(i).getRoomType(), SUPERIORROOM.get(i).getBedType(),
+                        SUPERIORROOM.get(i).getRoomCustomer().getCustomerName(),
                         SUPERIORROOM.get(i).getRoomCustomer().getCustomerLastName());
             } else if (SUPERIORROOM.get(i).isStatus().equals("empty")) { // ว่าง
-                System.out.format("Room. %-4s | Type: %-15s  | Status: unoccupied \n", SUPERIORROOM.get(i).getRoomNo(),
-                        SUPERIORROOM.get(i).getRoomType());
+                System.out.format("Room. %-4s   | Type: %-15s | Bed type: %-10s | Status: unoccupied \n",
+                        SUPERIORROOM.get(i).getRoomNo(),
+                        SUPERIORROOM.get(i).getRoomType(), SUPERIORROOM.get(i).getBedType());
             } else {
                 System.out.println("I'm working but condition is not true");
             }
@@ -370,14 +377,13 @@ public class Program {
                     staff.getPhoneNumber(), staff.getemail());
         }
         System.out.println("--------------------------------------------------------------------------------");
-        clearLine();
     }
 
     private static void showHistory() {
         System.out.println("------------------------------------------------");
         System.out.println("|                 Show history                 |");
         System.out.println("------------------------------------------------");
-        System.out.println("| Room no.| Room type        | Customer        |");
+        System.out.println("|Room no. | Room type      | Customer          |");
         System.out.println("------------------------------------------------");
         if (HISTORY.size() > 0) {
             for (String history : HISTORY) {
