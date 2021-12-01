@@ -73,7 +73,6 @@ public class Program {
     private static void checkIn() {
         System.out.println(">> Check-in menu");
         int selectType = selectType();
-        System.out.println("=============================================");
         System.out.print("Select room for check-in: ");
         int inputSelect;
         char charInputSelect = input2.next().charAt(0);
@@ -243,7 +242,6 @@ public class Program {
         System.out.print("Press number for select room (1 or 2) : ");
 
         int selectedType = input2.nextInt();
-        System.out.println("=================================================");
 
         if (selectedType == 1) {
             showSelectedRoomInfo(1); // Select superior room
@@ -260,46 +258,64 @@ public class Program {
     private static void showSelectedRoomInfo(int selectedType) {
 
         if (selectedType == 1) {
+            System.out.println(
+                    "============================================================================================");
             for (int i = 0; i < SUPERIORROOM.size(); i++) {
                 if (SUPERIORROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
-                    System.out.println(
+                    // System.out.println(
 
-                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
-                                    + SUPERIORROOM.get(i).getKitchenStyle() + " " +
-                                    " | Status: booked");
+                    // (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
+                    // + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
+                    // + SUPERIORROOM.get(i).getKitchenStyle() + " " +
+                    // " | Status: booked");
+                    System.out.format("%-2s. Room no. %-3s | Type: %-12s | Kitchen style: %-13s | Status: booked\n",
+                            (i + 1), SUPERIORROOM.get(i).getRoomNo(), SUPERIORROOM.get(i).getRoomType(),
+                            SUPERIORROOM.get(i).getKitchenStyle());
                 } else if (SUPERIORROOM.get(i).isStatus().equals("empty")) { // ว่าง
-                    System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
-                                    + SUPERIORROOM.get(i).getKitchenStyle() + " "
-                                    + " | Status: unoccupied");
+                    // System.out.println(
+                    // (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
+                    // + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
+                    // + SUPERIORROOM.get(i).getKitchenStyle() + " "
+                    // + " | Status: unoccupied");
+                    System.out.format("%-2s. Room no. %-3s | Type: %-12s | Kitchen style: %-13s | Status: unoccupied\n",
+                            (i + 1), SUPERIORROOM.get(i).getRoomNo(), SUPERIORROOM.get(i).getRoomType(),
+                            SUPERIORROOM.get(i).getKitchenStyle());
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
             }
-
+            System.out.println(
+                    "============================================================================================");
         } else {
-
+            System.out.println(
+                    "================================================================================");
             // Show Suite room
             for (int i = 0; i < SUITEROOM.size(); i++) {
                 // Check room status empty or booked
                 if (SUITEROOM.get(i).isStatus().equals("booked")) {// ไม่ว่าง
-                    System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUITEROOM.get(i).getRoomType()
-                                    + " | Staff: "
-                                    + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: booked");
+                    // System.out.println(
+                    // (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
+                    // + SUITEROOM.get(i).getRoomType()
+                    // + " | Staff: "
+                    // + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: booked");
+                    System.out.format("%-2s. Room no. %-3s | Type: %-12s | Staff: %-9s | Status: booked\n", (i + 1),
+                            SUITEROOM.get(i).getRoomNo(), SUITEROOM.get(i).getRoomType(),
+                            SUITEROOM.get(i).getStaff().getStaffName());
                 } else if (SUITEROOM.get(i).isStatus().equals("empty")) { // ว่าง
-                    System.out.println(
-                            (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUITEROOM.get(i).getRoomType()
-                                    + " | Staff: "
-                                    + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: unoccupied");
+                    // System.out.println(
+                    // (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
+                    // + SUITEROOM.get(i).getRoomType()
+                    // + " | Staff: "
+                    // + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: unoccupied");
+                    System.out.format("%-2s. Room no. %-3s | Type: %-12s | Staff: %-9s | Status: unoccupied\n", (i + 1),
+                            SUITEROOM.get(i).getRoomNo(), SUITEROOM.get(i).getRoomType(),
+                            SUITEROOM.get(i).getStaff().getStaffName());
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
             }
+            System.out.println(
+                    "================================================================================");
         }
     }
 
