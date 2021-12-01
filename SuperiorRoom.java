@@ -1,17 +1,14 @@
 public class SuperiorRoom extends Room {
 
-    private boolean kitchen;
+    private String kitchen;
 
-    public SuperiorRoom(int roomNo) {
+    public SuperiorRoom(int roomNo, String kitchenStyle) {
         super(roomNo, "King size", "superior room");
-
+        this.kitchen = kitchenStyle;
     }
 
-    public boolean isKitchen() {
+    public String getKitchenStyle() {
         return kitchen;
     }
 
-    public void setKitchen(boolean kitchen) {
-        this.kitchen = kitchen;
-    }
 }

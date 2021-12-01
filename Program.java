@@ -24,8 +24,9 @@ public class Program {
         SUITEROOM.add(new SuiteRoom(2, STAFFARRAY[1]));
         SUITEROOM.add(new SuiteRoom(3, STAFFARRAY[2]));
         SUITEROOM.add(new SuiteRoom(4, STAFFARRAY[3]));
-        SUPERIORROOM.add(new SuperiorRoom(5));
-        SUPERIORROOM.add(new SuperiorRoom(6));
+        SUPERIORROOM.add(new SuperiorRoom(5, "Transitional"));
+        SUPERIORROOM.add(new SuperiorRoom(6, "Scandinavian"));
+        SUPERIORROOM.add(new SuperiorRoom(7, "Modern"));
 
         // Main menu
         while (isWorking) {
@@ -264,15 +265,15 @@ public class Program {
                     System.out.println(
 
                             (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUPERIORROOM.get(i).getRoomType()
-                                    + " | Status: unoccupied" + " Customer: "
-                                    + SUPERIORROOM.get(i).getRoomCustomer().getCustomerName() + " "
-                                    + SUPERIORROOM.get(i).getRoomCustomer().getCustomerLastName());
+                                    + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
+                                    + SUPERIORROOM.get(i).getKitchenStyle() + " " +
+                                    " | Status: booked");
                 } else if (SUPERIORROOM.get(i).isStatus().equals("empty")) { // ว่าง
                     System.out.println(
                             (i + 1) + ". " + "Room no. " + SUPERIORROOM.get(i).getRoomNo() + " | Type: "
-                                    + SUPERIORROOM.get(i).getRoomType()
-                                    + " | Status: empty");
+                                    + SUPERIORROOM.get(i).getRoomType() + " | Kitchen style: "
+                                    + SUPERIORROOM.get(i).getKitchenStyle() + " "
+                                    + " | Status: unoccupied");
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
@@ -287,16 +288,14 @@ public class Program {
                     System.out.println(
                             (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
                                     + SUITEROOM.get(i).getRoomType()
-                                    + " | Status: booked" + " Customer: "
-                                    + SUITEROOM.get(i).getRoomCustomer().getCustomerName() + " "
-                                    + SUITEROOM.get(i).getRoomCustomer().getCustomerLastName() + " | Staff: "
-                                    + SUITEROOM.get(i).getStaff().getStaffName());
+                                    + " | Staff: "
+                                    + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: booked");
                 } else if (SUITEROOM.get(i).isStatus().equals("empty")) { // ว่าง
                     System.out.println(
                             (i + 1) + ". " + "Room no. " + SUITEROOM.get(i).getRoomNo() + " | Type: "
                                     + SUITEROOM.get(i).getRoomType()
-                                    + " | Status: unoccupied" + " | Staff: "
-                                    + SUITEROOM.get(i).getStaff().getStaffName());
+                                    + " | Staff: "
+                                    + SUITEROOM.get(i).getStaff().getStaffName() + " | Status: unoccupied");
                 } else {
                     System.out.println("I'm working but condition is not true");
                 }
